@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
-
+import WebFont from 'webfontloader'
 import { SakuraSeedHueOptions, SakuraSeedLightnessOptions } from '../src/themes/SakuraSeedColorThemes'
-import { SakuraSeedFontThemes } from '../src/themes/SakuraSeedFontThemes'
+import { SakuraSeedPrimaryFontFace } from '../src/themes/SakuraSeedFontThemes'
 
 
 export const parameters = {
@@ -52,63 +52,59 @@ export const globalTypes = {
     },
   },
   fonts: {
-    name: 'Fonts',
+    name: 'fonts',
     description: 'Selection of fonts from the Theme',
-    defaultValue: 'default',
+    defaultValue: 'Pacifico',
     toolbar: {
       icon: 'listunordered',
-      items: ['default', 'Poppins', 'Roboto'],
+      items: [  'Poppins', 'Pacifico', 'Exo'],
     },
   },
 };
 
 
-const themeBuilder = (primaryHue, primaryLightness, secondaryHue, secondaryLightness) => {
+const themeBuilder = (primaryHue, primaryLightness, secondaryHue, secondaryLightness, primaryFont) => {
     const theme = {
       colors: {
         primaryColor: `hsl(${primaryHue}, ${primaryLightness})`,
         secondaryColor: `hsl(${secondaryHue}, ${secondaryLightness})`,
       },
+      fonts: {
+        primaryFont: {
+          font: `${primaryFont}`,
+          fontWeight: 500,
+        }
+      }
     }
   return theme;
 }
 
 const getHueValue = (value) => SakuraSeedHueOptions[value]
 const getLightnessValue = (value) => SakuraSeedLightnessOptions[value]
-// const getColors = (primaryHue, primaryLightness, secondaryHue, secondaryLightness) => {
-  
-// }
+const getFonts = (value) => SakuraSeedPrimaryFontFace[value]
 
 
-const getFontsTheme = (value) => SakuraSeedFontThemes[value]
+const withThemeProvider=(Story, context) => {
 
-// const getColorsTheme = (themeName) => {
-//   return SakuraSeedColorThemes[themeName]
-// }
-// const getFontsTheme = (themeName) => {
-//   return SakuraSeedFontThemes[themeName]
-// }
-// const getColorsTheme = (themeName) => {
-//   return SakuraSeedColorThemes[themeName]
-// }
-// const getFontsTheme = (themeName) => {
-//   return SakuraSeedFontThemes[themeName]
-// }
+  WebFont.load({
+    google: {
+      families: [context.globals.fonts]
+    }
+  });
 
-const withThemeProvider=(Story,context)=>{
+
   const primaryHue = getHueValue(context.globals.primaryHue);
   const primaryLightness = getLightnessValue(context.globals.primaryLightness);
   const secondaryHue = getHueValue(context.globals.secondaryHue);
   const secondaryLightness = getLightnessValue(context.globals.secondaryLightness);
-  const theme = themeBuilder(primaryHue, primaryLightness, secondaryHue, secondaryLightness);
+  const primaryFont = getFonts(context.globals.fonts);
+  console.log(`primaryFont`, primaryFont)
+  const theme = themeBuilder(primaryHue, primaryLightness, secondaryHue, secondaryLightness, primaryFont);
   console.log(`theme`, theme);
   
-  const themeFonts = getFontsTheme(context.globals.fonts);
   return (
     <ThemeProvider theme={theme}>
-      <ThemeProvider theme={themeFonts}>
         <Story {...context} />
-      </ThemeProvider>
     </ThemeProvider>
   )
 }

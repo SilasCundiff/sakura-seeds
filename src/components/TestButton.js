@@ -12,7 +12,8 @@ const StyledTestButton = styled.button`
     font-size: 32px;
     border-radius: 4px;
     cursor: pointer;
-    font-family: ${props => props.theme.font};
+    font-family: ${props => props.theme.fonts.primaryFont.font};
+    src: ${props => props.theme.src};
     font-weight: 900;
 `;
 
