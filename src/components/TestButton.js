@@ -13,15 +13,19 @@ const StyledTestButton = styled.button`
     border-radius: 4px;
     cursor: pointer;
     font-family: ${props => props.theme.fonts.primaryFont.font};
-    src: ${props => props.theme.src};
-    font-weight: 900;
+    font-weight: ${props => props.theme.fonts.primaryFont.fontWeight};
+    & .subtext {
+        font-family: ${props => props.theme.fonts.secondaryFont.font};
+        font-weight: ${props => props.theme.fonts.secondaryFont.fontWeight};
+    }
 `;
 
-const TestButton = ({children, theme}) => {
+const TestButton = ({children}) => {
  
     return (
-        <StyledTestButton theme={theme}>
+        <StyledTestButton >
             {children}
+            <span className="subtext">Button</span>
         </StyledTestButton>
     )
 }

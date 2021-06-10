@@ -11,5 +11,5 @@ const Template = args => <TestButton {...args} />
 
 export const FirstButton = Template.bind({})
 FirstButton.args = {
-    children: "Test Button",
+    children: "Test ",
 }

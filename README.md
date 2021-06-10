@@ -2,7 +2,7 @@
 
 **Designed and planned in Figma**
 **Prototyped in Storybook**
-**Developed with React and styled-components**
+**Developed with React, webfontloader and styled-components**
 
 
 ## About
@@ -17,4 +17,7 @@ Components can be updated, hidden, shown, and moved around based off of props yo
 
 TODO 
 - ~~Build Color Themes~~
-- Oranize and Include Fonts
+- ~~Oranize and Include Fonts~~ *Switched to using webfontloader for dynamically loaded fonts*
+- Currently only allowing google fonts: Add support for more later.
+- Allow components to have a default style in case a style or theme aren't provided.
+- Allow components to receive unique styles in case a theme isn't provided
